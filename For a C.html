@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For a C</title>
+</head>
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<div style = "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" id = "AttackDeathDiv"></div>
+<script>
+  function read() {
+    Plotly.d3.csv("choleraDeaths.tsv", function(data){ processData(data) });
+  };
+  function processData(allRows) {
+    console.log(allRows);
+    var x =[], y = [], standard_deviation = [];
+  }
+</script>
+</body>
+</html>
