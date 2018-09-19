@@ -17,6 +17,14 @@
     <div style="border-style: solid"></div>
   </div>
 </div>
+<div class="ui fluid container">
+  <div id="table1"style="padding-left: 500px; width: 400px"></div>
+</div>
+<div>
+  <div class="ui fluid container">
+    <div style="border-style: solid"></div>
+  </div>
+</div>
 <div id="mBar"></div>
 <div>
   <div class="ui fluid container">
@@ -36,91 +44,187 @@
     <div style="border-style: solid"></div>
   </div>
 </div>
+<div id="mBar1"></div>
+<div>
+  <div class="ui fluid container">
+    <div style="border-style: solid"></div>
+  </div>
+</div>
+<div id="fBar1"></div>
+<div>
+  <div class="ui fluid container">
+    <div style="border-style: solid"></div>
+  </div>
+</div>
+<div id = "tPie"></div>
 <script>
-  Plotly.d3.tsv("https://raw.githubusercontent.com/idemello/Cholera484/master/naplesCholeraAgeSexData.tsv", function(err, rows){
-    function readAndPull(element, key) {
-      return element.map(function(row) { return row[key]; });
-    }
-    var header = Plotly.d3.keys(rows[0]);
-    console.log(header);
-    var headerData = [];
-    var cellData = [];
-    for (i = 0; i < header.length; i++) {
-      headerValue = [header[i]];
-      headerData[i] = headerValue;
-      cellValue = readAndPull(rows, header[i]);
-      cellData[i] = cellValue;
-    }
-    for (i = 0; i < cellData[1].length; i++) {
-      var ageValue = cellData[1][i].split(' ')[0];
-      cellData[1][i] = ageValue;
-    }
-    var maleValues = cellData[1].slice(0);
-    var femaleValues = cellData[2].slice(0);
-    console.log(cellData[0]);
-    console.log(maleValues);
-    console.log(femaleValues);
-    var tableData = [{
-      type: 'table',
-      columnwidth: [30,30,30],
-      columnorder: [0,1,2],
-      header: {
-        values: headerData,
-        align: "center",
-        font: {family: "Helvetica", size: 11, color: "white"},
-        line: {color: 'rgb(50, 50, 50)',width: 1, },
-        fill: {color: ['green']}
-      },
-      cells: {
-        values: cellData,
-        align: "center",
-        font: {family: "Helvetica", size: 11, color: ["black"]},
-        line: {color: "black", width: 1},
-        fill: {color: ['rgb(144, 238, 144)','white']}
+  Plotly.d3.tsv("https://raw.githubusercontent.com/mserai/Cholera/master/naplesCholeraAgeSexData.tsv", function(err, rows) {
+    Plotly.d3.csv("https://raw.githubusercontent.com/mserai/Cholera/master/UKcensus1851.csv", function (err1, rows1) {
+      function readAndPull(element, key) {
+        return element.map(function (row) {
+          return row[key];
+        });
       }
-    }];
-    var mBarData = [
-      {
-        x: ["0-1" ,"2-5","6-10","11-14","16-20","21-40","41-60","61-80","over 80"],
-        y: [8.2,14,12.1,7.8,7.2,12.1,13.7,20.5,39.6],
-        type: 'bar'
+      function add(a,b){
+          return parseInt(a, 10) + parseInt(b, 10);
       }
-    ];
-    var fBarData = [
-      {
-        x: ["0-1" ,"2-5","6-10","11-14","16-20","21-40","41-60","61-80","over 80"],
-        y: [8.9,14.7,11.2,7.1,7.2,11.8,12.9,20.5,37.8],
-        type: 'bar'
+      var header = Plotly.d3.keys(rows[0]);
+      var header1 = Plotly.d3.keys(rows1[0]);
+      var headerData = [];
+      var cellData = [];
+      var headerData1 = [];
+      var cellData1 = [];
+      for (i = 0; i < header.length; i++) {
+        headerValue = [header[i]];
+        headerData[i] = headerValue;
+        cellValue = readAndPull(rows, header[i]);
+        cellData[i] = cellValue;
       }
-    ];
-    var mPieData = [{
-      values: maleValues,
-      labels: cellData[0],
-      type: 'pie'
-    }];
-    var fPieData = [{
-      values: femaleValues,
-      labels: cellData[0],
-      type: 'pie'
-    }];
-    var fPieTitle = {
-      title: 'Female',
-      height: 400,
-      width: 500
-    };
-    var mPieTitle = {
-      title: 'Male',
-      height: 400,
-      width: 500
-    };
-    var tableTitle = {
-      title: "Table of Fatalities by Sex and Age group"
-    };
-    Plotly.plot('table', tableData, tableTitle);
-    Plotly.newPlot('mPie', mPieData, mPieTitle);
-    Plotly.newPlot('fPie', fPieData, fPieTitle);
-    Plotly.newPlot('mBar', mBarData);
-    Plotly.newPlot('fBar', fBarData);
+      for (i = 0; i < header1.length; i++) {
+        headerValue1 = [header1[i]];
+        headerData1[i] = headerValue1;
+        cellValue1 = readAndPull(rows1, header1[i]);
+        cellData1[i] = cellValue1;
+      }
+      for (i = 0; i < cellData[1].length; i++) {
+        var ageValue = cellData[1][i].split(' ')[0];
+        cellData[1][i] = ageValue;
+      }
+      for (i = 0; i < cellData1[1].length; i++) {
+        var ageValue1 = cellData1[1][i].split(' ')[0];
+        cellData1[1][i] = ageValue1;
+      }
+      var mValues = cellData[1].slice(0);
+      var fValues = cellData[2].slice(0);
+      var mValues1 = cellData1[1].slice(0);
+      var fValues1 = cellData1[2].slice(0);
+      var tableData = [{
+        type: 'table',
+        columnwidth: [30, 30, 30],
+        columnorder: [0, 1, 2],
+        header: {
+          values: headerData,
+          align: "center",
+          font: { family: "Helvetica", size: 11, color: "white" },
+          line: { color: 'rgb(50, 50, 50)', width: 1, },
+          fill: { color: ['green'] }
+        },
+        cells: {
+          values: cellData,
+          align: "center",
+          font: { family: "Helvetica", size: 11, color: ["black"] },
+          line: { color: "black", width: 1 },
+          fill: { color: ['rgb(144, 238, 144)', 'white'] }
+        }
+      }];
+      var tableData1 = [{
+        type: 'table',
+        columnwidth: [30, 30, 30],
+        columnorder: [0, 1, 2],
+        header: {
+          values: headerData1,
+          align: "center",
+          font: { family: "Helvetica", size: 11, color: "white" },
+          line: { color: 'rgb(50, 50, 50)', width: 1, },
+          fill: { color: ['green'] }
+        },
+        cells: {
+          values: cellData1,
+          align: "center",
+          font: { family: "Helvetica", size: 11, color: ["black"] },
+          line: { color: "black", width: 1 },
+          fill: { color: ['rgb(144, 238, 144)', 'white'] }
+        }
+      }];
+      var mBarData = [
+        {
+          x: cellData[0],
+          y: cellData[1],
+          type: 'bar'
+        }
+      ];
+      var fBarData = [
+        {
+          x: cellData[0],
+          y: cellData[2],
+          type: 'bar'
+        }
+      ];
+      var mBarData1 = [
+        {
+          x: cellData1[0],
+          y: cellData1[1],
+          type: 'bar'
+        }
+      ];
+      var fBarData1 = [
+        {
+          x: cellData1[0],
+          y: cellData1[2],
+          type: 'bar'
+        }
+      ];
+      var mPieData = [{
+        values: mValues1,
+        labels: cellData1[0],
+        type: 'pie'
+      }];
+      var fPieData = [{
+        values: fValues1,
+        labels: cellData1[0],
+        type: 'pie'
+      }];
+      var tMales = mValues1.reduce(add, 0);
+      var tFemales = fValues1.reduce(add, 0);
+      var totals = [tMales, tFemales];
+      var tPieData = [{
+        values: totals,
+        labels: ['Male', 'Female'],
+        type: 'pie'
+      }];
+      var fPieTitle = {
+        title: 'Female Age Data',
+        height: 500,
+        width: 500
+      };
+      var mPieTitle = {
+        title: 'Male Age Data',
+        height: 500,
+        width: 500
+      };
+      var tableTitle = {
+        title: "Table of Fatalities by Sex and Age group"
+      };
+      var tableTitle1 = {
+        title: "Second table"
+      };
+      var mBarTitle = {
+        title: "Male Fatalities"
+      };
+      var fBarTitle = {
+        title: "Female Fatalities"
+      };
+      var mBarTitle1 = {
+        title: "Male Age"
+      };
+      var fBarTitle1 = {
+        title: "Female Age"
+      };
+      var tPieTitle = {
+        title: "Total Males and Females",
+        height: 500,
+        width: 500
+      };
+      Plotly.plot('table', tableData, tableTitle);
+      Plotly.plot('table1', tableData1, tableTitle1);
+      Plotly.newPlot('mPie', mPieData, mPieTitle);
+      Plotly.newPlot('fPie', fPieData, fPieTitle);
+      Plotly.newPlot('mBar', mBarData, mBarTitle);
+      Plotly.newPlot('fBar', fBarData, fBarTitle);
+      Plotly.newPlot('mBar1', mBarData1, mBarTitle1);
+      Plotly.newPlot('fBar1', fBarData1, fBarTitle1);
+      Plotly.newPlot('tPie', tPieData, tPieTitle);
+    });
   });
 </script>
 </body>
