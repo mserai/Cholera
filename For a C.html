@@ -6,17 +6,123 @@
 </head>
 <head>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
 </head>
 <body>
-<div style = "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" id = "AttackDeathDiv"></div>
+<div class="ui fluid container">
+  <div id="table"style="padding-left: 450px; width: 600px"></div>
+</div>
+<div>
+  <div class="ui fluid container">
+    <div style="border-style: solid"></div>
+  </div>
+</div>
+<div class="ui fluid container">
+  <div id="plots"style="margin: 100px"></div>
+</div>
+<div>
+  <div class="ui fluid container">
+    <div style="border-style: solid"></div>
+  </div>
+</div>
+<div>
+  <div class="ui fluid container">
+    <p>Hi I'm Mike</p>
+  </div>
+</div>
 <script>
-  function read() {
-    Plotly.d3.csv("choleraDeaths.tsv", function(data){ processData(data) });
-  };
-  function processData(allRows) {
-    console.log(allRows);
-    var x =[], y = [], standard_deviation = [];
-  }
+  /*1. Read in the choleraDeaths.tsv data file*/
+  Plotly.d3.tsv("https://raw.githubusercontent.com/mserai/Cholera/master/choleraDeaths.tsv", function(err, rows){
+    function readAndPull(element, key) {
+      return element.map(function(row) { return row[key]; });
+    }
+    var header = Plotly.d3.keys(rows[0]);
+    var headerData = [];
+    var cellData = [];
+    var totalAttack = ["1"];
+    var totalDeath = ["1"];
+    for (i = 0; i < header.length; i++) {
+      headerValue = [header[i]];
+      headerData[i] = headerValue;
+      cellValue = readAndPull(rows, header[i]);
+      cellData[i] = cellValue;
+    }
+    for (i = 0; i < cellData[1].length; i++) {
+      var dateValue = cellData[1][i].split(' ')[0];
+      cellData[1][i] = dateValue;
+    }
+    for(i = 1; i< cellData[1].length; i++){
+      totalAttack[i] = parseInt(cellData[1][i], 10) + parseInt(totalAttack[i-1], 10);
+      totalAttack[i] = totalAttack[i].toString();
+      totalDeath[i] = parseInt(cellData[2][i], 10) + parseInt(totalDeath[i-1], 10);
+      totalDeath[i] = totalDeath[i].toString();
+    }
+    headerData.push(["Total Attacks"]);
+    headerData.push(["Total Deaths"]);
+    cellData.push(totalAttack);
+    cellData.push(totalDeath);
+    console.log(cellData);
+    /*2. Create a Plot.ly table of attacks...*/
+    var tableValues = [[cellData], [totalAttack], [totalDeath]];
+    var data = [{
+      type: 'table',
+      columnwidth: [50,50,50,50,50],
+      columnorder: [0,1,2,3,4],
+      header: {
+        values: headerData,
+        align: "center",
+        font: {family: "Helvetica", size: 11, color: "white"},
+        line: {color: 'rgb(50, 50, 50)',width: 1, },
+        fill: {color: ['green']}
+      },
+      cells: {
+        values: cellData,
+        align: "center",
+        font: {family: "Helvetica", size: 11, color: ["black"]},
+        line: {color: "black", width: 1},
+        fill: {color: ['rgb(144, 238, 144)','white']}
+      }
+    }];
+    /*3. Create a line chart showing...*/
+    trace1 = {
+      x: cellData[0],
+      y: cellData[1],
+      mode: 'lines',
+      name: 'Attacks per Day'
+    };
+    trace2 = {
+      x: cellData[0],
+      y: cellData[2],
+      mode: 'lines',
+      name: 'Deaths per Day'
+    };
+    trace3 = {
+      x: cellData[0],
+      y: totalAttack,
+      mode: 'lines',
+      name: 'Total Attacks'
+    };
+    trace4 = {
+      x: cellData[0],
+      y: totalDeath,
+      mode: 'lines',
+      name: 'Total Deaths'
+    };
+    var lineData = [trace1, trace2, trace3, trace4];
+    var layout = {
+      title: "Table of Cholera Attacks and Deaths"
+    };
+    var lineLayout = {
+      title: 'Cholera Attacks and Deaths by Day',
+      xaxis: {
+        title: ''
+      },
+      yaxis: {
+        title: 'Attacks and Deaths per day'
+      }
+    };
+    Plotly.plot('plots', lineData, lineLayout);
+    Plotly.plot('table', data, layout);
+  });
 </script>
 </body>
-</html>
