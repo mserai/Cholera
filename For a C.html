@@ -64,7 +64,7 @@
     console.log(cellData);
     /*2. Create a Plot.ly table of attacks...*/
     var tableValues = [[cellData], [totalAttack], [totalDeath]];
-    var data = [{
+    var tableData = [{
       type: 'table',
       columnwidth: [50,50,50,50,50],
       columnorder: [0,1,2,3,4],
@@ -108,21 +108,18 @@
       mode: 'lines',
       name: 'Total Deaths'
     };
-    var lineData = [trace1, trace2, trace3, trace4];
-    var layout = {
+    var plotsData = [trace1, trace2, trace3, trace4];
+    var tableTitle = {
       title: "Table of Cholera Attacks and Deaths"
     };
-    var lineLayout = {
+    var plotsTitle = {
       title: 'Cholera Attacks and Deaths by Day',
-      xaxis: {
-        title: ''
-      },
       yaxis: {
         title: 'Attacks and Deaths per day'
       }
     };
-    Plotly.plot('plots', lineData, lineLayout);
-    Plotly.plot('table', data, layout);
+    Plotly.plot('table', tableData, tableTitle);
+    Plotly.plot('plots', plotsData, plotsTitle);
   });
 </script>
 </body>

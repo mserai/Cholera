@@ -15,8 +15,8 @@
 <body>
 <div style = "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" id = "myDiv"></div>
 <script>
-  Plotly.d3.csv('https://raw.githubusercontent.com/idemello/Cholera484/master/choleraDeathLocations.csv', function(err, rows){
-    Plotly.d3.csv("https://raw.githubusercontent.com/idemello/Cholera484/master/choleraPumpLocations.csv", function(err2, rows2) {
+  Plotly.d3.csv('https://raw.githubusercontent.com/mserai/Cholera/master/choleraDeathLocations.csv', function(err, rows){
+    Plotly.d3.csv("https://raw.githubusercontent.com/mserai/Cholera/master/choleraPumpLocations.csv", function(err2, rows2) {
       function unpack(rows, key) {
         return rows.map(function (row) {
           return row[key];
