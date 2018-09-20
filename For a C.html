@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>For a C</title>
+  <title>Cholera Deaths</title>
 </head>
 <head>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
 </head>
+<!--4. Allow the user-->
+<nav class="ui stackable menu">
+  <a style="padding-top: 8px; padding-left: 50px;" href="https://mserai.github.io/projects/cholera">About</a>
+</nav>
 <body>
 <div class="ui fluid container">
   <div id="table"style="padding-left: 450px; width: 600px"></div>
@@ -25,11 +29,6 @@
     <div style="border-style: solid"></div>
   </div>
 </div>
-<div>
-  <div class="ui fluid container">
-    <p>Hi I'm Mike</p>
-  </div>
-</div>
 <script>
   /*1. Read in the choleraDeaths.tsv data file*/
   Plotly.d3.tsv("https://raw.githubusercontent.com/mserai/Cholera/master/choleraDeaths.tsv", function(err, rows){
@@ -41,6 +40,7 @@
     var cellData = [];
     var totalAttack = ["1"];
     var totalDeath = ["1"];
+    /*Grab*/
     for (i = 0; i < header.length; i++) {
       headerValue = [header[i]];
       headerData[i] = headerValue;
@@ -61,7 +61,7 @@
     headerData.push(["Total Deaths"]);
     cellData.push(totalAttack);
     cellData.push(totalDeath);
-    console.log(cellData);
+
     /*2. Create a Plot.ly table of attacks...*/
     var tableData = [{
       type: 'table',
@@ -82,6 +82,7 @@
         fill: {color: ['rgb(144, 238, 144)','white']}
       }
     }];
+
     /*3. Create a line chart showing...*/
     trace1 = {
       x: cellData[0],
@@ -108,15 +109,18 @@
       name: 'Total Deaths'
     };
     var plotsData = [trace1, trace2, trace3, trace4];
+    /* Titles*/
     var tableTitle = {
       title: "Table of Cholera Attacks and Deaths"
     };
     var plotsTitle = {
-      title: 'Cholera Attacks and Deaths by Day',
+      title: 'Cholera Attacks and Deaths by Date',
       yaxis: {
         title: 'Attacks and Deaths per day'
       }
     };
+
+    /*Go*/
     Plotly.plot('table', tableData, tableTitle);
     Plotly.plot('plots', plotsData, plotsTitle);
   });

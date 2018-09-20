@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>For a B</title>
+  <title>Census and Age Data</title>
 </head>
 <head>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
 </head>
+<nav class="ui stackable menu">
+  <a style="padding-top: 8px; padding-left: 50px;" href="https://mserai.github.io/projects/cholera">About</a>
+</nav>
 <body>
 <div class="ui fluid container">
   <div id="table"style="padding-left: 500px; width: 400px"></div>
@@ -37,8 +40,8 @@
     <div style="border-style: solid"></div>
   </div>
 </div>
-<div id = "mPie"></div>
-<div id = "fPie"></div>
+<div id = "mPie"style="padding-left: 500px"></div>
+<div id = "fPie"style="padding-left: 500px"></div>
 <div>
   <div class="ui fluid container">
     <div style="border-style: solid"></div>
@@ -56,17 +59,14 @@
     <div style="border-style: solid"></div>
   </div>
 </div>
-<div id = "tPie"></div>
+<div id = "tPie"style="padding-left: 500px"></div>
 <script>
+  /*1. Read in naplesCholeraAgeSexData.tsv...*/
   Plotly.d3.tsv("https://raw.githubusercontent.com/mserai/Cholera/master/naplesCholeraAgeSexData.tsv", function(err, rows) {
+    /*4. Read in UKcensus1851.csv...*/
     Plotly.d3.csv("https://raw.githubusercontent.com/mserai/Cholera/master/UKcensus1851.csv", function (err1, rows1) {
       function readAndPull(element, key) {
-        return element.map(function (row) {
-          return row[key];
-        });
-      }
-      function add(a,b){
-          return parseInt(a, 10) + parseInt(b, 10);
+        return element.map(function (row) { return row[key];});
       }
       var header = Plotly.d3.keys(rows[0]);
       var header1 = Plotly.d3.keys(rows1[0]);
@@ -74,6 +74,7 @@
       var cellData = [];
       var headerData1 = [];
       var cellData1 = [];
+      /*Grab*/
       for (i = 0; i < header.length; i++) {
         headerValue = [header[i]];
         headerData[i] = headerValue;
@@ -94,10 +95,10 @@
         var ageValue1 = cellData1[1][i].split(' ')[0];
         cellData1[1][i] = ageValue1;
       }
-      var mValues = cellData[1].slice(0);
-      var fValues = cellData[2].slice(0);
-      var mValues1 = cellData1[1].slice(0);
-      var fValues1 = cellData1[2].slice(0);
+      var mValues = cellData1[1].slice(0);
+      var fValues = cellData1[2].slice(0);
+
+      /*2. Show a table of age categories...*/
       var tableData = [{
         type: 'table',
         columnwidth: [30, 30, 30],
@@ -117,6 +118,8 @@
           fill: { color: ['rgb(144, 238, 144)', 'white'] }
         }
       }];
+
+      /*5. Show a table of the census age*/
       var tableData1 = [{
         type: 'table',
         columnwidth: [30, 30, 30],
@@ -136,6 +139,8 @@
           fill: { color: ['rgb(144, 238, 144)', 'white'] }
         }
       }];
+
+      /*3. Show a bar chart of cage categories...*/
       var mBarData = [
         {
           x: cellData[0],
@@ -150,6 +155,8 @@
           type: 'bar'
         }
       ];
+
+      /*7. Show a bar chart of the census age*/
       var mBarData1 = [
         {
           x: cellData1[0],
@@ -164,24 +171,35 @@
           type: 'bar'
         }
       ];
+
+      /*6. Show a pie chart of the census age*/
       var mPieData = [{
-        values: mValues1,
+        values: mValues,
         labels: cellData1[0],
         type: 'pie'
       }];
       var fPieData = [{
-        values: fValues1,
+        values: fValues,
         labels: cellData1[0],
         type: 'pie'
       }];
-      var tMales = mValues1.reduce(add, 0);
-      var tFemales = fValues1.reduce(add, 0);
+      function sum(a,b){
+        return parseInt(a, 10) + parseInt(b, 10);
+      }
+
+      /*Add um up*/
+      var tMales = mValues.reduce(sum, 0);
+      var tFemales = fValues.reduce(sum, 0);
       var totals = [tMales, tFemales];
+
+      /*8. Show a pie chart for the overall...*/
       var tPieData = [{
         values: totals,
         labels: ['Male', 'Female'],
         type: 'pie'
       }];
+
+      /*Titles*/
       var fPieTitle = {
         title: 'Female Age Data',
         height: 500,
@@ -196,7 +214,7 @@
         title: "Table of Fatalities by Sex and Age group"
       };
       var tableTitle1 = {
-        title: "Second table"
+        title: "Table of Census Age"
       };
       var mBarTitle = {
         title: "Male Fatalities"
@@ -205,16 +223,18 @@
         title: "Female Fatalities"
       };
       var mBarTitle1 = {
-        title: "Male Age"
+        title: "Male Census Age"
       };
       var fBarTitle1 = {
-        title: "Female Age"
+        title: "Female Census Age"
       };
       var tPieTitle = {
-        title: "Total Males and Females",
+        title: "Total Males vs Females",
         height: 500,
         width: 500
       };
+
+      /*Go*/
       Plotly.plot('table', tableData, tableTitle);
       Plotly.plot('table1', tableData1, tableTitle1);
       Plotly.newPlot('mPie', mPieData, mPieTitle);

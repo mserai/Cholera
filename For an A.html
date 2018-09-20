@@ -2,41 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
-
+  <title>For an A</title>
   <head>
-    <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!--Semantic UI-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
   </head>
-
-</head>
+</head><nav class="ui stackable menu">
+  <a style="padding-top: 8px; padding-left: 50px;" href="https://mserai.github.io/projects/cholera">About</a>
+</nav>
 <body>
-<div style = "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" id = "myDiv"></div>
+<div class="ui fluid container">
+<div id="map"></div>
+</div>
 <script>
+  /*1. Read in choleraDeathLocations.csv and ...*/
   Plotly.d3.csv('https://raw.githubusercontent.com/mserai/Cholera/master/choleraDeathLocations.csv', function(err, rows){
-    Plotly.d3.csv("https://raw.githubusercontent.com/mserai/Cholera/master/choleraPumpLocations.csv", function(err2, rows2) {
-      function unpack(rows, key) {
-        return rows.map(function (row) {
-          return row[key];
+    Plotly.d3.csv('https://raw.githubusercontent.com/mserai/Cholera/master/choleraPumpLocations.csv', function(err1, rows1) {
+      function readAndPull(element, key) {
+        return element.map(function (row) { return row[key];
         });
       }
-      scl = [[0, 'rgb(150,0,90)'], [0.125, 'rgb(0, 0, 200)'], [0.25, 'rgb(0, 25, 255)'], [0.375, 'rgb(0, 152, 255)'], [0.5, 'rgb(44, 255, 150)'], [0.625, 'rgb(151, 255, 0)'], [0.75, 'rgb(255, 234, 0)'], [0.875, 'rgb(255, 111, 0)'], [1, 'rgb(255, 0, 0)']];
-      var data = [{
+      var pumpY = [];
+      var pumpX = [];
+      /*Grab*/
+      pumpY.push(Object.keys(rows1[0])[0]);
+      pumpX.push(Object.keys(rows1[0])[1]);
+      for (var i = 0; i < rows1.length; i++) {
+        pumpX.push(rows1[i]["51.513341"]);
+        pumpY.push(rows1[i]["-0.136668"]);
+      }
+      for (var i = 0; i <= rows1.length; i++) {
+        rows.push({Deaths: "10.0", pumpLong: pumpY[i], pumpLat: pumpX[i]});
+      }
+      console.log(rows);
+      console.log(rows1);
+      var colors = [[0, 'rgb(150,0,90)'],[0.1, 'rgb(0, 0, 200)'],[4,'rgb(0, 25, 255)'],[6,'rgb(0, 152, 255)'],[8,'rgb(44, 255, 150)'],[10,'rgb(151, 255, 0)'],[12,'rgb(255, 234, 0)'],[14,'rgb(255, 111, 0)'],[16,'rgb(255, 0, 0)']];
+      var plots = [{
         type: 'scattermapbox',
         mode: 'markers',
-        text: unpack(rows, 'Deaths'),
-        lon: unpack(rows, 'PumpLon'),
-        lat: unpack(rows, 'PumpLat'),
+        text: readAndPull(rows, 'Deaths'),
+        lon: readAndPull(rows, 'pumpLong'),
+        lat: readAndPull(rows, 'pumpLat'),
         marker: {
-          color: unpack(rows, 'Deaths'),
-          colorscale: scl,
+          color: readAndPull(rows, 'Deaths'),
+          autocolorscale: false,
+          colorscale: colors,
           cmin: 0,
-          cmax: 1.4,
-          reversescale: true,
-          opacity: 0.5,
-          size: 10,
+          cmax: 20,
+          opacity: 0.7,
+          size: readAndPull(rows, 'Deaths'),
+          sizeref: 0.3,
           colorbar: {
             thickness: 10,
             titleside: 'right',
@@ -44,25 +59,28 @@
             ticks: 'outside',
             ticklen: 3,
             shoticksuffix: 'last',
-            ticksuffix: 'inches',
-            dtick: 0.1
+            ticksuffix: ' deaths',
+            dtick: 1
           }
         },
-        name: 'NA Precipitation'
+        name: 'Pumps with Death Locations'
       }];
       layout = {
+        height: 1000,
+        width: 2000,
         dragmode: 'zoom',
+        title: 'Pumps and Deaths',
         mapbox: {
           center: {
-            lat: 51.513603,
-            lon: -0.136217
+            lat: 51.510413,
+            lon: -0.132347
           },
           domain: {
             x: [0, 1],
             y: [0, 1]
           },
           style: 'light',
-          zoom: 16.8
+          zoom: 15.1
         },
         margin: {
           r: 0,
@@ -76,11 +94,10 @@
       Plotly.setPlotConfig({
         mapboxAccessToken: 'pk.eyJ1IjoiaWRlbWVsbG8iLCJhIjoiY2ptNnFiZmc5MDJoZzNwdXE2aXhiYXNqdCJ9.qKCVHMu9enwE6uzCJRDgFw'
       });
-      Plotly.newPlot('myDiv', data, layout);
+      /*Go*/
+      Plotly.newPlot('map', plots, layout);
     })
   });
-
 </script>
-
 </body>
 </html>
