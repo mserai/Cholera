@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b0b01152-74cd-4908-a1d4-419c1067cc9a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/For a B.html" beforeDir="false" afterPath="$PROJECT_DIR$/For a B.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/For a C.html" beforeDir="false" afterPath="$PROJECT_DIR$/For a C.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/For an A.html" beforeDir="false" afterPath="$PROJECT_DIR$/For an A.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/choleraDeathLocations.csv" beforeDir="false" afterPath="$PROJECT_DIR$/choleraDeathLocations.csv" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,15 +42,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="csv" value="53" />
-          <entry key="html" value="6143" />
+          <entry key="csv" value="78" />
+          <entry key="html" value="6205" />
           <entry key="tsv" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSV" value="53" />
-          <entry key="HTML" value="6143" />
+          <entry key="CSV" value="78" />
+          <entry key="HTML" value="6205" />
           <entry key="TSV" value="35" />
         </counts>
       </usages-collector>
@@ -62,11 +60,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/For an A.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+            <state relative-caret-position="417">
+              <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#nav#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -104,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/choleraDeathLocations.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+            <state relative-caret-position="391">
+              <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -147,6 +145,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>rows1</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -164,8 +167,8 @@
         <option value="$PROJECT_DIR$/About Me.html" />
         <option value="$PROJECT_DIR$/For a C.html" />
         <option value="$PROJECT_DIR$/For a B.html" />
-        <option value="$PROJECT_DIR$/choleraDeathLocations.csv" />
         <option value="$PROJECT_DIR$/For an A.html" />
+        <option value="$PROJECT_DIR$/choleraDeathLocations.csv" />
       </list>
     </option>
   </component>
@@ -382,13 +385,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/choleraDeathLocations.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UKcensus1851.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -398,11 +394,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/For an A.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+        <state relative-caret-position="417">
+          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
           <folding>
             <element signature="n#style#0;n#a#0;n#nav#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/choleraDeathLocations.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
         </state>
       </provider>
     </entry>
