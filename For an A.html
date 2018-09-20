@@ -34,8 +34,6 @@
       for (var i = 0; i <= rows1.length; i++) {
         rows.push({Deaths: "10.0", pumpLong: pumpY[i], pumpLat: pumpX[i]});
       }
-      console.log(rows);
-      console.log(rows1);
       var colors = [[0, 'rgb(150,0,90)'],[0.1, 'rgb(0, 0, 200)'],[4,'rgb(0, 25, 255)'],[6,'rgb(0, 152, 255)'],[8,'rgb(44, 255, 150)'],[10,'rgb(151, 255, 0)'],[12,'rgb(255, 234, 0)'],[14,'rgb(255, 111, 0)'],[16,'rgb(255, 0, 0)']];
 
       /*2. Show a map of the locations of the deaths...*/
@@ -94,7 +92,7 @@
         showlegend: false
       };
       Plotly.setPlotConfig({
-        mapboxAccessToken: 'pk.eyJ1IjoiaWRlbWVsbG8iLCJhIjoiY2ptNnFiZmc5MDJoZzNwdXE2aXhiYXNqdCJ9.qKCVHMu9enwE6uzCJRDgFw'
+        mapboxAccessToken: 'pk.eyJ1IjoibXNlcmFpIiwiYSI6ImNqbTl1NWJ5ajAwMW8zcG1yNjY5emc5NnMifQ.Ig1yRjY3fv_Babaz0TbVOw'
       });
       /*Go*/
       Plotly.newPlot('map', plots, layout);
