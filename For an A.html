@@ -9,7 +9,7 @@
   </head>
 </head><nav class="ui stackable menu">
   <a style="padding-top: 8px; padding-left: 50px;" href="https://mserai.github.io/projects/cholera">About</a>
-</nav>
+  </nav>
 <body>
 <div class="ui fluid container">
 <div id="map"></div>
@@ -28,11 +28,8 @@
       pumpY.push(Object.keys(rows1[0])[0]);
       pumpX.push(Object.keys(rows1[0])[1]);
       for (var i = 0; i < rows1.length; i++) {
-        pumpX.push(rows1[i]["51.513341"]);
-        pumpY.push(rows1[i]["-0.136668"]);
-      }
-      for (var i = 0; i <= rows1.length; i++) {
-        rows.push({Deaths: "10", pumpLong: pumpY[i], pumpLat: pumpX[i]});
+        pumpX.push(rows1[i]["x"]);
+        pumpY.push(rows1[i]["y"]);
       }
       var colors = [[0, 'rgb(134,0,0)'],[0.25,'rgb(134, 36, 36)'],[0.5,'rgb(132, 73, 73)'],[0.75,'rgb(134, 116, 116)'],[1,'rgb(0,0,0)']];
       /*2. Show a map of the locations of the deaths...*/
@@ -52,7 +49,20 @@
           size: unpack(rows, 'Deaths'),
           sizeref: 0.3,
         },
-        name: 'Pumps with Death Locations'
+        name: 'Deaths'
+      }];
+      /* of pumps*/
+      var plot = [{
+        type: 'scattermapbox',
+        mode: 'markers',
+        lon: unpack(rows1, 'x'),
+        lat: unpack(rows1, 'y'),
+        marker: {
+          symbol: 'star',
+          size: 20,
+          color: 'rgb(0,0,256)',
+        },
+        name: 'Pumps'
       }];
       layout = {
         height: 1000,
@@ -84,7 +94,8 @@
         mapboxAccessToken: 'pk.eyJ1IjoibXNlcmFpIiwiYSI6ImNqbTl1NWJ5ajAwMW8zcG1yNjY5emc5NnMifQ.Ig1yRjY3fv_Babaz0TbVOw'
       });
       /*Go*/
-      Plotly.newPlot('map', plots, layout);
+      Plotly.newPlot('map', plot, layout);
+      Plotly.plot('map', plots, layout);
     })
   });
 </script>
