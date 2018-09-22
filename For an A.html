@@ -9,6 +9,7 @@
   </head>
 </head><nav class="ui stackable menu">
   <a style="padding-top: 8px; padding-left: 50px;" href="https://mserai.github.io/projects/cholera">About</a>
+  <div style="padding-top: 8px; padding-left: 200px"><p>Stars represent pumps. Circles represent deaths. The bigger and darker the circle, the more deaths at each location.</p></div>
   </nav>
 <body>
 <div class="ui fluid container">
@@ -31,7 +32,7 @@
         pumpX.push(rows1[i]["x"]);
         pumpY.push(rows1[i]["y"]);
       }
-      var colors = [[0, 'rgb(134,0,0)'],[0.25,'rgb(134, 36, 36)'],[0.5,'rgb(132, 73, 73)'],[0.75,'rgb(134, 116, 116)'],[1,'rgb(0,0,0)']];
+      var colors = [[0, 'rgb(256,0,0)'],[0.25,'rgb(200, 36, 36)'],[0.5,'rgb(132, 73, 73)'],[0.75,'rgb(73, 0, 0)'],[1,'rgb(0,0,0)']];
       /*2. Show a map of the locations of the deaths...*/
       var plots = [{
         type: 'scattermapbox',
@@ -47,9 +48,8 @@
           reversescale: false,
           opacity: unpack(rows, 'Deaths'),
           size: unpack(rows, 'Deaths'),
-          sizeref: 0.3,
+          sizeref: .25,
         },
-        name: 'Deaths'
       }];
       /* of pumps*/
       var plot = [{
@@ -62,7 +62,7 @@
           size: 20,
           color: 'rgb(0,0,256)',
         },
-        name: 'Pumps'
+        name: 'Pump'
       }];
       layout = {
         height: 1000,
