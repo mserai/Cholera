@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>For an A</title>
+  <title>Pump and Death Locations</title>
   <head>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
@@ -18,8 +18,8 @@
   /*1. Read in choleraDeathLocations.csv and ...*/
   Plotly.d3.csv('https://raw.githubusercontent.com/mserai/Cholera/master/choleraDeathLocations.csv', function(err, rows){
     Plotly.d3.csv('https://raw.githubusercontent.com/mserai/Cholera/master/choleraPumpLocations.csv', function(err1, rows1) {
-      function readAndPull(element, key) {
-        return element.map(function (row) { return row[key];
+      function unpack(rows, key) {
+        return rows.map(function (row) { return row[key];
         });
       }
       var pumpY = [];
@@ -32,36 +32,25 @@
         pumpY.push(rows1[i]["-0.136668"]);
       }
       for (var i = 0; i <= rows1.length; i++) {
-        rows.push({Deaths: "10.0", pumpLong: pumpY[i], pumpLat: pumpX[i]});
+        rows.push({Deaths: "10", pumpLong: pumpY[i], pumpLat: pumpX[i]});
       }
-      var colors = [[0, 'rgb(150,0,90)'],[0.1, 'rgb(0, 0, 200)'],[4,'rgb(0, 25, 255)'],[6,'rgb(0, 152, 255)'],[8,'rgb(44, 255, 150)'],[10,'rgb(151, 255, 0)'],[12,'rgb(255, 234, 0)'],[14,'rgb(255, 111, 0)'],[16,'rgb(255, 0, 0)']];
-
+      var colors = [[0, 'rgb(134,0,0)'],[0.25,'rgb(134, 36, 36)'],[0.5,'rgb(132, 73, 73)'],[0.75,'rgb(134, 116, 116)'],[1,'rgb(0,0,0)']];
       /*2. Show a map of the locations of the deaths...*/
       var plots = [{
         type: 'scattermapbox',
         mode: 'markers',
-        text: readAndPull(rows, 'Deaths'),
-        lon: readAndPull(rows, 'pumpLong'),
-        lat: readAndPull(rows, 'pumpLat'),
+        text: unpack(rows, 'Deaths'),
+        lon: unpack(rows, 'pumpLong'),
+        lat: unpack(rows, 'pumpLat'),
         marker: {
-          color: readAndPull(rows, 'Deaths'),
-          autocolorscale: false,
+          color: unpack(rows, 'Deaths'),
           colorscale: colors,
           cmin: 0,
-          cmax: 20,
-          opacity: 0.7,
-          size: readAndPull(rows, 'Deaths'),
+          cmax: 10,
+          reversescale: false,
+          opacity: unpack(rows, 'Deaths'),
+          size: unpack(rows, 'Deaths'),
           sizeref: 0.3,
-          colorbar: {
-            thickness: 10,
-            titleside: 'right',
-            outlinecolor: 'rgba(68,68,68,0)',
-            ticks: 'outside',
-            ticklen: 3,
-            shoticksuffix: 'last',
-            ticksuffix: ' deaths',
-            dtick: 1
-          }
         },
         name: 'Pumps with Death Locations'
       }];
@@ -80,7 +69,7 @@
             y: [0, 1]
           },
           style: 'light',
-          zoom: 15.1
+          zoom: 15.3
         },
         margin: {
           r: 0,
@@ -89,7 +78,7 @@
           l: 0,
           pad: 0
         },
-        showlegend: false
+        showlegend: true
       };
       Plotly.setPlotConfig({
         mapboxAccessToken: 'pk.eyJ1IjoibXNlcmFpIiwiYSI6ImNqbTl1NWJ5ajAwMW8zcG1yNjY5emc5NnMifQ.Ig1yRjY3fv_Babaz0TbVOw'

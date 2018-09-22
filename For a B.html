@@ -65,8 +65,8 @@
   Plotly.d3.tsv("https://raw.githubusercontent.com/mserai/Cholera/master/naplesCholeraAgeSexData.tsv", function(err, rows) {
     /*4. Read in UKcensus1851.csv...*/
     Plotly.d3.csv("https://raw.githubusercontent.com/mserai/Cholera/master/UKcensus1851.csv", function (err1, rows1) {
-      function readAndPull(element, key) {
-        return element.map(function (row) { return row[key];});
+      function unpack(rows, key) {
+        return rows.map(function (row) { return row[key];});
       }
       var header = Plotly.d3.keys(rows[0]);
       var header1 = Plotly.d3.keys(rows1[0]);
@@ -78,13 +78,13 @@
       for (i = 0; i < header.length; i++) {
         headerValue = [header[i]];
         headerData[i] = headerValue;
-        cellValue = readAndPull(rows, header[i]);
+        cellValue = unpack(rows, header[i]);
         cellData[i] = cellValue;
       }
       for (i = 0; i < header1.length; i++) {
         headerValue1 = [header1[i]];
         headerData1[i] = headerValue1;
-        cellValue1 = readAndPull(rows1, header1[i]);
+        cellValue1 = unpack(rows1, header1[i]);
         cellData1[i] = cellValue1;
       }
       for (i = 0; i < cellData[1].length; i++) {

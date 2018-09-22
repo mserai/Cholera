@@ -32,8 +32,8 @@
 <script>
   /*1. Read in the choleraDeaths.tsv data file*/
   Plotly.d3.tsv("https://raw.githubusercontent.com/mserai/Cholera/master/choleraDeaths.tsv", function(err, rows){
-    function readAndPull(element, key) {
-      return element.map(function(row) { return row[key]; });
+    function unpack(row, key) {
+      return row.map(function(row) { return row[key]; });
     }
     var header = Plotly.d3.keys(rows[0]);
     var headerData = [];
@@ -44,7 +44,7 @@
     for (i = 0; i < header.length; i++) {
       headerValue = [header[i]];
       headerData[i] = headerValue;
-      cellValue = readAndPull(rows, header[i]);
+      cellValue = unpack(rows, header[i]);
       cellData[i] = cellValue;
     }
     for (i = 0; i < cellData[1].length; i++) {
